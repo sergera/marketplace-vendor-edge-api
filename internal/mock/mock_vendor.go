@@ -1,7 +1,6 @@
 package mock
 
 import (
-	"math"
 	"time"
 
 	"github.com/sergera/marketplace-vendor-edge-api/internal/domain"
@@ -20,15 +19,8 @@ func NewMockVendor() *MockVendor {
 func (mv MockVendor) MockOrderStatusUpdates(o domain.OrderModel) {
 	currentStatus := domain.Unconfirmed
 	for int(currentStatus) <= int(domain.Delivered) {
-		var minSeconds int
-		var maxSeconds int
-		if currentStatus == domain.Unconfirmed {
-			minSeconds = 10
-			maxSeconds = 30
-		} else {
-			minSeconds = int(currentStatus) * 10
-			maxSeconds = int(math.Pow(float64(currentStatus), 5))
-		}
+		minSeconds := int(currentStatus)
+		maxSeconds := int(currentStatus) * 5
 		seconds := random.IntInRange(minSeconds, maxSeconds)
 		time.Sleep(time.Duration(seconds) * time.Second)
 		currentStatus++
