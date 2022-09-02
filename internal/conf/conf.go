@@ -54,7 +54,7 @@ func (c *conf) setPort() {
 }
 
 func (c *conf) setWorkerHost() {
-	workerHost := c.hocon.GetString("db.host")
+	workerHost := c.hocon.GetString("worker.host")
 	if len(workerHost) == 0 {
 		log.Panic("worker host environment variable not found")
 	}
@@ -63,7 +63,7 @@ func (c *conf) setWorkerHost() {
 }
 
 func (c *conf) setWorkerPort() {
-	workerPort := c.hocon.GetString("db.port")
+	workerPort := c.hocon.GetString("worker.port")
 	if len(workerPort) == 0 {
 		log.Panic("worker port environment variable not found")
 	}
