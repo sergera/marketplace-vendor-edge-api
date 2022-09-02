@@ -68,7 +68,7 @@ func (s WorkerService) Put(route string, jsonData []byte) error {
 func (s WorkerService) UpdateStatus(o domain.OrderModel) error {
 	m, err := json.Marshal(o)
 	if err != nil {
-		log.Println("Failed to marshal event model into json")
+		log.Println("failed to marshal order model into json")
 		return err
 	}
 
