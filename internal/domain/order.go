@@ -5,17 +5,18 @@ import (
 	"time"
 )
 
-type status int8
+type Status int8
 
 const (
-	Unconfirmed status = iota + 1
+	Unknown     Status = 0
+	Unconfirmed Status = iota + 1
 	InProgress
 	Ready
 	InTransit
 	Delivered
 )
 
-func (s status) String() string {
+func (s Status) String() string {
 	switch s {
 	case Unconfirmed:
 		return "unconfirmed"
@@ -59,5 +60,22 @@ func (o OrderModel) ValidateStatus() error {
 		return nil
 	default:
 		return errors.New("invalid order status")
+	}
+}
+
+func (o OrderModel) StatusType() (Status, error) {
+	switch o.Status {
+	case Unconfirmed.String():
+		return Unconfirmed, nil
+	case InProgress.String():
+		return InProgress, nil
+	case Ready.String():
+		return Ready, nil
+	case InTransit.String():
+		return InTransit, nil
+	case Delivered.String():
+		return Delivered, nil
+	default:
+		return Unknown, errors.New("invalid order status")
 	}
 }
